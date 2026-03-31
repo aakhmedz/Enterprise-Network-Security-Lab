@@ -73,9 +73,6 @@ The IT VLAN retained authorized access, demonstrating role-based network privile
 ![IT Allowed to Access Finance](screenshots/testing/it-allowed-finance.jpeg)
 
 
-#### Unauthorized Access Blocked
-![Management Access Blocked](screenshots/testing/mgmt-blocked.jpeg)
-
 ## DMZ Security
 A DMZ network was created to host a public-facing web server while limiting unnecessary access.
 
