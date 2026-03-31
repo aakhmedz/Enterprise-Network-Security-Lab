@@ -1,0 +1,131 @@
+## Router config:
+
+Building configuration...
+Current configuration : 2042 bytes
+!
+version 15.1
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+service password-encryption
+!
+hostname Routers
+!
+!
+!
+enable secret 5 $1$mERr$/VT.EosIwbboaDHzZXq7r1
+!
+!
+!
+!
+!
+!
+ip cef
+no ipv6 cef
+!
+!
+!
+username admin secret 5 $1$mERr$tKAvQPi4nwql8vUTe8ogt/
+!
+!
+license udi pid CISCO2911/K9 sn FTX1524QC8E-
+!
+!
+!
+!
+!
+!
+!
+!
+!
+ip domain-name lab.local
+!
+!
+spanning-tree mode pvst
+!
+
+!
+!
+!
+!
+!
+interface GigabitEthernet0/0
+no ip address
+duplex auto
+speed auto
+!
+interface GigabitEthernet0/0.10
+encapsulation dot1Q 10
+ip address 192.168.10.1 255.255.255.0
+ip access-group 100 in
+!
+interface GigabitEthernet0/0.20
+encapsulation dot1Q 20
+ip address 192.168.20.1 255.255.255.0
+!
+interface GigabitEthernet0/0.30
+encapsulation dot1Q 30
+ip address 192.168.30.1 255.255.255.0
+!
+interface GigabitEthernet0/0.40
+encapsulation dot1Q 40
+ip address 192.168.40.1 255.255.255.0
+ip access-group 120 in
+!
+interface GigabitEthernet0/0.99
+encapsulation dot1Q 99
+ip address 192.168.99.1 255.255.255.0
+ip access-group 110 in
+!
+interface GigabitEthernet0/1
+no ip address
+duplex auto
+speed auto
+shutdown
+!
+interface GigabitEthernet0/2
+no ip address
+duplex auto
+speed auto
+shutdown
+
+!
+interface Vlan1
+no ip address
+shutdown
+!
+ip nat inside source list 1 interface GigabitEthernet0/1 overload
+ip classless
+!
+ip flow-export version 9
+!
+!
+access-list 100 deny ip 192.168.10.0 0.0.0.255 192.168.20.0 0.0.0.255
+access-list 100 permit ip any any
+access-list 101 deny ip any 192.168.99.0 0.0.0.255
+access-list 101 permit ip any any
+access-list 1 permit 192.168.0.0 0.0.255.255
+access-list 110 permit ip 192.168.30.0 0.0.0.255 192.168.99.0 0.0.0.255
+access-list 110 deny ip any 192.168.99.0 0.0.0.255
+access-list 110 permit ip any any
+access-list 120 permit tcp any host 192.168.40.10 eq www
+access-list 120 deny ip any 192.168.40.0 0.0.0.255
+access-list 120 permit ip any any
+!
+banner motd ^C
+Unauthorized access is prohibited.
+^C
+!
+!
+!
+!
+line con 0
+!
+line aux 0
+!
+line vty 0 4
+login local
+transport input ssh
+!
+!
+!
+end
